@@ -1,3 +1,10 @@
 connexion == 1.1.15
-python_dateutil == 2.6.0
+python_dateutil == 2.8.1
 setuptools >= 21.0.0
+Click==7.0
+Flask==1.1.1
+Flask-Migrate==2.5.2
+Flask-Script==2.0.6
+Flask-SQLAlchemy==2.4.1
+SQLAlchemy==1.3.13
+Werkzeug==1.0.0
