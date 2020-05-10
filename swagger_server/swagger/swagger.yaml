@@ -280,7 +280,9 @@ securityDefinitions:
     type: "oauth2"
     authorizationUrl: "worlddevelopmentindicator.swagger.io/oauth/dialog"
     flow: "implicit"
+    x-tokenInfoUrl: http://localhost:8080/swagger_server
     scopes:
+      uid: Unique identifier of the user accessing the service.
       write:countries: "modify countries"
       read:countries: "read country"
   api_key:
