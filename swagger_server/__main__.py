@@ -2,11 +2,13 @@
 
 import connexion
 
+from flask import Flask
+
 from swagger_server import encoder
 
 
 def main():
-    app = connexion.App(__name__, specification_dir='./swagger/')
+    app = Flask(__name__, specification_dir='./swagger/') #connexion.App
     app.app.json_encoder = encoder.JSONEncoder
     app.add_api('swagger.yaml', arguments={'title': 'Word Development Indicators'})
     app.run(port=8080)
