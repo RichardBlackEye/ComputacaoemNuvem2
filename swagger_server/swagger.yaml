@@ -1,0 +1,423 @@
+---
+swagger: "2.0"
+info:
+  description: "This is an API for the World Development Indicators. The status reffered\
+    \ on the API requires to be edited with the indicators of the dataset. For this\
+    \ sample, you can use the api key `special-key` to test the authorization filters.\n\
+    This is a full REST API as **it does use PUT and DELETE http methods**, besides\
+    \ GET and POST methods"
+  version: "1.0.0"
+  title: "Word Development Indicators"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "bigquery.googleapis.com"
+basePath: "/bigquery/v2/projects/cloudcomputworlddevelopment/datasets/ccworlddataset"
+tags:
+- name: "country"
+  description: "Everything about the countries in the dataset."
+- name: "indicator"
+  description: "Everything about the indicators in the dataset."
+schemes:
+- "https"
+- "http"
+paths:
+  /tables/country:
+    post:
+      tags:
+      - "country"
+      summary: "Add a new country to the dataset"
+      description: ""
+      operationId: "add_country"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "CountryCode"
+        in: "formData"
+        description: "Code of the country"
+        required: true
+        type: "string"
+      - name: "ShortName"
+        in: "formData"
+        description: "Short name of the country"
+        required: true
+        type: "string"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - dataset_auth:
+        - "write:countries"
+        - "read:countries"
+      x-swagger-router-controller: "swagger_server.controllers.country_controller"
+  /tables/country/{CountryCode}:
+    get:
+      tags:
+      - "country"
+      summary: "Find country by ID"
+      description: "Returns a single country"
+      operationId: "get_country_by_id"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "CountryCode"
+        in: "path"
+        description: "ID of country to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Country"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Country not found"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "swagger_server.controllers.country_controller"
+    post:
+      tags:
+      - "country"
+      summary: "Updates a country in the dataset with form data"
+      description: ""
+      operationId: "update_country_with_form"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "CountryCode"
+        in: "path"
+        description: "ID of country that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the country"
+        required: false
+        type: "string"
+      - name: "status"
+        in: "formData"
+        description: "Updated status of the country"
+        required: false
+        type: "string"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - dataset_auth:
+        - "write:countries"
+        - "read:countries"
+      x-swagger-router-controller: "swagger_server.controllers.country_controller"
+    delete:
+      tags:
+      - "country"
+      summary: "Deletes a country"
+      description: ""
+      operationId: "delete_country"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "CountryCode"
+        in: "path"
+        description: "Country  to delete"
+        required: true
+        type: "string"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Country not found"
+      security:
+      - dataset_auth:
+        - "write:countries"
+        - "read:countries"
+      x-swagger-router-controller: "swagger_server.controllers.country_controller"
+  /indicator:
+    post:
+      tags:
+      - "indicator"
+      summary: "Add a new indicator to the dataset"
+      description: ""
+      operationId: "add_indicator"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Indicator object that needs to be added to the dataset"
+        required: true
+        schema:
+          $ref: "#/definitions/Indicator"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - dataset_auth:
+        - "write:countries"
+        - "read:countries"
+      x-swagger-router-controller: "swagger_server.controllers.indicator_controller"
+  /indicator/{indicatorId}:
+    get:
+      tags:
+      - "indicator"
+      summary: "Find indicator by ID"
+      description: "Returns a single indicator"
+      operationId: "get_indicator_by_id"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "indicatorId"
+        in: "path"
+        description: "ID of indicator to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Country"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Country not found"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "swagger_server.controllers.indicator_controller"
+    post:
+      tags:
+      - "indicator"
+      summary: "Updates a indicator in the dataset with form data"
+      description: ""
+      operationId: "update_indicator_with_form"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "indicatorId"
+        in: "path"
+        description: "ID of indicator that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the indicator"
+        required: false
+        type: "string"
+      - name: "status"
+        in: "formData"
+        description: "Updated status of the indicator"
+        required: false
+        type: "string"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - dataset_auth:
+        - "write:countries"
+        - "read:countries"
+      x-swagger-router-controller: "swagger_server.controllers.indicator_controller"
+    delete:
+      tags:
+      - "indicator"
+      summary: "Deletes a indicator"
+      description: ""
+      operationId: "delete_indicator"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "indicatorId"
+        in: "path"
+        description: "Indicator id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Indicator not found"
+      security:
+      - dataset_auth:
+        - "write:countries"
+        - "read:countries"
+      x-swagger-router-controller: "swagger_server.controllers.indicator_controller"
+securityDefinitions:
+  dataset_auth:
+    type: "oauth2"
+    authorizationUrl: "worlddevelopmentindicator.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:countries: "modify countries"
+      read:countries: "read country"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Tag:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+    xml:
+      name: "Tag"
+    example:
+      name: "name"
+      id: 6
+  Country:
+    type: "object"
+    properties:
+      countrycode:
+        type: "string"
+        example: "AFG"
+      shortname:
+        type: "string"
+        example: "Afghanistan"
+      tablename:
+        type: "string"
+        example: "Afghanistan"
+      longname:
+        type: "string"
+        example: "Islamic State of Afghanistan"
+      alpha2code:
+        type: "string"
+        example: "AF"
+      currencyunit:
+        type: "string"
+        example: "Afghan afghani"
+      specialnotes:
+        type: "string"
+        example: "Fiscal year end: March 20; ..."
+      region:
+        type: "string"
+        example: "South Asia"
+      incomegroup:
+        type: "string"
+        example: "Low income"
+      wb2code:
+        type: "string"
+        example: "AF"
+      nationalaccountbaseyear:
+        type: "integer"
+        format: "int64"
+        example: "2002/03"
+      nationalaccountreferenceyear:
+        type: "integer"
+        format: "int64"
+        example: "2002/03"
+      snapricevaluation:
+        type: "string"
+        example: "Value added at basic..."
+      lendingcategory:
+        type: "string"
+        example: "IDA"
+      othergroups:
+        type: "string"
+        example: "HIPC"
+      systemofnationalaccounts:
+        type: "string"
+        example: "Country uses the 1993..."
+    xml:
+      name: "Country"
+    example:
+      incomegroup: "Low income"
+      longname: "Islamic State of Afghanistan"
+      snapricevaluation: "Value added at basic..."
+      countrycode: "AFG"
+      shortname: "Afghanistan"
+      nationalaccountbaseyear: "2002/03"
+      currencyunit: "Afghan afghani"
+      alpha2code: "AF"
+      nationalaccountreferenceyear: "2002/03"
+      specialnotes: "Fiscal year end: March 20; ..."
+      systemofnationalaccounts: "Country uses the 1993..."
+      wb2code: "AF"
+      lendingcategory: "IDA"
+      tablename: "Afghanistan"
+      region: "South Asia"
+      othergroups: "HIPC"
+  Indicator:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "Birth rate"
+      tags:
+        type: "array"
+        xml:
+          name: "tag"
+          wrapped: true
+        items:
+          $ref: "#/definitions/Tag"
+      status:
+        type: "string"
+        description: "World Indicator in the dataset"
+        enum:
+        - "available"
+        - "requires update"
+    xml:
+      name: "Indicator"
+    example:
+      name: "Birth rate"
+      id: 0
+      tags:
+      - name: "name"
+        id: 6
+      - name: "name"
+        id: 6
+      status: "available"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
