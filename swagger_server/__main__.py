@@ -6,6 +6,9 @@ from flask import Flask
 
 from swagger_server import encoder
 
+def get_secret(user) -> str:
+    return 'You are: {uid}'.format(uid=user)
+
 
 def main():
     app = Flask(__name__, specification_dir='./swagger/') #connexion.App
