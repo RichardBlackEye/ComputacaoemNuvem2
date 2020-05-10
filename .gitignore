@@ -51,8 +51,17 @@ venv/
 *.mo
 *.pot
 
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Rope
+.ropeproject
+
 # Django stuff:
 *.log
+*.pot
 
 # Sphinx documentation
 docs/_build/
@@ -62,3 +71,5 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+*.DS_Store
