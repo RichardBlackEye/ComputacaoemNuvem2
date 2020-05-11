@@ -15,7 +15,7 @@ class Indicator(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, id: int=None, name: str=None, tags: List[Tag]=None, status: str=None):  # noqa: E501
+    def __init__(self, id: int=None, name: str=None, status: str=None):  # noqa: E501
         """Indicator - a model defined in Swagger
 
         :param id: The id of this Indicator.  # noqa: E501
@@ -30,20 +30,17 @@ class Indicator(Model):
         self.swagger_types = {
             'id': int,
             'name': str,
-            'tags': List[Tag],
             'status': str
         }
 
         self.attribute_map = {
             'id': 'id',
             'name': 'name',
-            'tags': 'tags',
             'status': 'status'
         }
 
         self._id = id
         self._name = name
-        self._tags = tags
         self._status = status
 
     @classmethod
@@ -100,27 +97,6 @@ class Indicator(Model):
             raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
 
         self._name = name
-
-    @property
-    def tags(self) -> List[Tag]:
-        """Gets the tags of this Indicator.
-
-
-        :return: The tags of this Indicator.
-        :rtype: List[Tag]
-        """
-        return self._tags
-
-    @tags.setter
-    def tags(self, tags: List[Tag]):
-        """Sets the tags of this Indicator.
-
-
-        :param tags: The tags of this Indicator.
-        :type tags: List[Tag]
-        """
-
-        self._tags = tags
 
     @property
     def status(self) -> str:
