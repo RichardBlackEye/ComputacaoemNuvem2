@@ -11,7 +11,7 @@ def get_secret(user) -> str:
 
 
 def main():
-    app = Flask(__name__, specification_dir='./swagger/') #connexion.App
+    app = connexion.App(__name__, specification_dir='./swagger/') #Flask
     app.app.json_encoder = encoder.JSONEncoder
     app.add_api('swagger.yaml', arguments={'title': 'Word Development Indicators'})
     app.run(port=8080)
