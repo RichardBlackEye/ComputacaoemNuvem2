@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: goproxy
+  name: computacaoemnuvem
   labels:
-    app: goproxy
+    app: computacaoemnuvem
 spec:
   containers:
-  - name: goproxy
-    image: k8s.gcr.io/goproxy:0.1
+  - name: computacaoemnuvem
+    image: gcr.io/cloudcomputworlddevelopment/computacaoemnuvem:v1
     ports:
     - containerPort: 8080
     readinessProbe:
