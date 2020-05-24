@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: web
+  name: computacao-web
   namespace: default
 spec:
   ports:
@@ -9,5 +9,5 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    run: web
+    run: computacao-web
   type: NodePort
