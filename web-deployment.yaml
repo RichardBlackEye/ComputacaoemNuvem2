@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: computacao-web
+  name: web
   namespace: default
 spec:
   selector:
     matchLabels:
-      run: computacao-web
+      run: web
   template:
     metadata:
       labels:
-        run: computacao-web
+        run: web
     spec:
       containers:
       - image: gcr.io/cloudcomputworlddevelopment/computacaoemnuvem:v1
         imagePullPolicy: IfNotPresent
-        name: computacao-web
+        name: web
         ports:
         - containerPort: 8080
           protocol: TCP
