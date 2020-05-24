@@ -4,5 +4,5 @@ metadata:
   name: basic-ingress
 spec:
   backend:
-    serviceName: web
+    serviceName: computacao-web
     servicePort: 8080
