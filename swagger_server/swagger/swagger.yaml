@@ -318,9 +318,6 @@ paths:
 securityDefinitions:
   BasicAuth:
     type: basic
-    authorizationUrl: https://www.googleapis.com/auth/bigquery
-    scopes:
-      admin: []
   OAuth2:
     type: oauth2
     flow: accessCode
