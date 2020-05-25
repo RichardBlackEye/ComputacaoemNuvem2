@@ -51,9 +51,15 @@ paths:
         required: true
         type: "string"
       responses:
+        "200":
+          description: "OK"
+        "403":
+          description: Access token does not have the required scope
         "405":
           description: "Invalid input"
       security:
+      - BasicAuth: []
+      - OAuth2: [admin]
       - dataset_auth:
         - "write:countries"
         - "read:countries"
@@ -85,6 +91,8 @@ paths:
         "404":
           description: "Country not found"
       security:
+      - BasicAuth: []
+      - OAuth2: [admin]
       - api_key: []
       x-swagger-router-controller: "swagger_server.controllers.country_controller"
     post:
@@ -116,9 +124,15 @@ paths:
         required: false
         type: "string"
       responses:
+        "200":
+          description: "OK"
+        "403":
+          description: Access token does not have the required scope
         "405":
           description: "Invalid input"
       security:
+      - BasicAuth: []
+      - OAuth2: [admin]
       - dataset_auth:
         - "write:countries"
         - "read:countries"
@@ -143,11 +157,17 @@ paths:
         required: true
         type: "string"
       responses:
+        "200":
+          description: "OK"
+        "403":
+          description: Access token does not have the required scope
         "400":
           description: "Invalid ID supplied"
         "404":
           description: "Country not found"
       security:
+      - BasicAuth: []
+      - OAuth2: [admin]
       - dataset_auth:
         - "write:countries"
         - "read:countries"
@@ -173,9 +193,15 @@ paths:
         schema:
           $ref: "#/definitions/Indicator"
       responses:
+        "200":
+          description: "OK"
+        "403":
+          description: Access token does not have the required scope
         "405":
           description: "Invalid input"
       security:
+      - BasicAuth: []
+      - OAuth2: [admin]
       - dataset_auth:
         - "write:countries"
         - "read:countries"
@@ -207,6 +233,8 @@ paths:
         "404":
           description: "Country not found"
       security:
+      - BasicAuth: []
+      - OAuth2: [admin]
       - api_key: []
       x-swagger-router-controller: "swagger_server.controllers.indicator_controller"
     post:
@@ -238,9 +266,15 @@ paths:
         required: false
         type: "string"
       responses:
+        "200":
+          description: "OK"
+        "403":
+          description: Access token does not have the required scope
         "405":
           description: "Invalid input"
       security:
+      - BasicAuth: []
+      - OAuth2: [admin]
       - dataset_auth:
         - "write:countries"
         - "read:countries"
@@ -266,19 +300,39 @@ paths:
         type: "integer"
         format: "int64"
       responses:
+        "200":
+          description: "OK"
         "400":
           description: "Invalid ID supplied"
+        "403":
+          description: Access token does not have the required scope
         "404":
           description: "Indicator not found"
       security:
+      - BasicAuth: []
+      - OAuth2: [admin]
       - dataset_auth:
         - "write:countries"
         - "read:countries"
       x-swagger-router-controller: "swagger_server.controllers.indicator_controller"
 securityDefinitions:
+  BasicAuth:
+    type: basic
+    authorizationUrl: https://www.googleapis.com/auth/bigquery
+    scopes:
+      admin: []
+  OAuth2:
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+    tokenUrl: https://oauth2.googleapis.com/token
+    scopes:
+      read: Grants read access
+      write: Grants write access
+      admin: Grants read and write access to administrative information
   dataset_auth:
     type: "oauth2"
-    authorizationUrl: "worlddevelopmentindicator.swagger.io/oauth/dialog"
+    authorizationUrl: "https://accounts.google.com/o/oauth2/v2/auth"
     flow: "implicit"
     x-tokenInfoUrl: http://localhost:8080/swagger_server
     scopes:
